@@ -3,6 +3,7 @@
 ## What you'll need to install:
 - express
 - inquirer
+
 Run `npm i express inquirer` to install the necessary dependencies
 
 ## The only things you should ever need to touch
