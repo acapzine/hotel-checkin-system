@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Occupancy</title>
+
+    <style>
+      /* Container div styling */
+      .container {
+        display: flex;
+        flex-wrap: wrap; /* Allows the items to wrap to the next line if needed */
+        justify-content: space-around; /* Distributes space around the items */
+        align-items: center; /* Centers items along the cross-axis */
+        padding: 10px; /* Optional: Adds some padding around the container */
+      }
+
+      /* Span elements inside the container */
+      .container span {
+        flex: 1 1 200px; /* Flex-grow: 1, Flex-shrink: 1, Flex-basis: 200px */
+        margin: 5px; /* Adds some margin around each span */
+        padding: 10px; /* Adds some padding inside each span */
+        text-align: center; /* Centers text inside each span */
+        background-color: #f0f0f0; /* Optional: Background color for each span */
+        border: 1px solid #ccc; /* Optional: Border for each span */
+        box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="container"></div>
+
+    <script>
+      async function getOccupancies() {
+        const response = await fetch("/room-status", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok)
+          throw new Error(
+            `Error whilst getting data: ${response.status} ${response.statusText}`,
+          );
+
+        const data = (await response.json()).data;
+
+        const container = document.getElementById("container");
+        container.replaceChildren();
+
+        for (const room of data.Standard) {
+          const span = document.createElement("span");
+
+          const p1 = document.createElement("p");
+          const p2 = document.createElement("p");
+          const p3 = document.createElement("p");
+          const p4 = document.createElement("p");
+
+          const p1text = document.createTextNode(room.number);
+          const p2text = document.createTextNode(room.taken ? "Occupied" : "Available");
+          const p3text = document.createTextNode("Standard");
+          const p4text = document.createTextNode(room.occupant);
+
+          p4.appendChild(p4text);
+
+          p1.appendChild(p1text);
+          p2.appendChild(p2text);
+          p3.appendChild(p3text);
+
+          p2.style.color = room.taken ? "#ff4141" : "#a5d699"
+
+          span.append(p1, p2, p3, p4);
+
+          if (room.occupant === "") p4.remove();
+
+          container.appendChild(span);
+        }
+        for (const room of data.Suite) {
+          const span = document.createElement("span");
+
+          const p1 = document.createElement("p");
+          const p2 = document.createElement("p");
+          const p3 = document.createElement("p");
+          const p4 = document.createElement("p");
+
+          const p1text = document.createTextNode(room.number);
+          const p2text = document.createTextNode(room.taken ? "Occupied" : "Available");
+          const p3text = document.createTextNode("Suite");
+          const p4text = document.createTextNode(room.occupant);
+
+          p4.appendChild(p4text);
+
+          p1.appendChild(p1text);
+          p2.appendChild(p2text);
+          p3.appendChild(p3text);
+
+          p2.style.color = room.taken ? "#ff4141" : "#a5d699"
+
+          span.append(p1, p2, p3, p4);
+
+          if (room.occupant === "") p4.remove();
+
+          container.appendChild(span);
+        }
+        for (const room of data.Penthouse) {
+          const span = document.createElement("span");
+
+          const p1 = document.createElement("p");
+          const p2 = document.createElement("p");
+          const p3 = document.createElement("p");
+          const p4 = document.createElement("p");
+
+          const p1text = document.createTextNode(room.number);
+          const p2text = document.createTextNode(room.taken ? "Occupied" : "Available");
+          const p3text = document.createTextNode("Penthouse");
+          const p4text = document.createTextNode(room.occupant);
+
+          p4.appendChild(p4text);
+
+          p1.appendChild(p1text);
+          p2.appendChild(p2text);
+          p3.appendChild(p3text);
+
+          p2.style.color = room.taken ? "#ff4141" : "#a5d699"
+
+          span.append(p1, p2, p3, p4);
+
+          if (room.occupant === "") p4.remove();
+
+          container.appendChild(span);
+        }
+      }
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        async () => await getOccupancies(),
+      );
+
+      setInterval(
+        async () => {
+          await getOccupancies();
+        },
+        1 * 60 * 1000,
+      );
+    </script>
+  </body>
+</html>
