@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="Hotel CheckIn System Test" />
+
+    <title>Hotel CheckIn System Test</title>
+
+    <style>
+      form {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <button type="button" id="checkinButton">Check someone in</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" id="checkoutButton">Check someone out</button>
+
+    <form id="checkin" shown="false">
+      <label for="name">Name&colon; </label>
+      <input type="text" name="name" id="person-name-checkin" />
+      <br />
+      <label for="roomtype">Room Type&colon; </label>
+      <select name="roomtype" id="roomtype">
+        <option value="standard" selected>Standard Room</option>
+        <option value="suite">Suite Room</option>
+      </select>
+      <br />
+      <label for="creditcardnumber">Credit Card Number&colon; </label>
+      <input type="password" name="creditcardnumber" id="creditcardnumber" />
+
+      <br />
+
+      <input type="submit" value="Check In" />
+    </form>
+
+    <form id="checkout" shown="false">
+      <label for="name">Name&colon; </label>
+      <input type="text" name="name" id="person-name-checkout" />
+      <br />
+      <label for="roomnumber">Room Number&colon; </label>
+      <input type="text" name="roomnumber" id="roomnumber" />
+
+      <br />
+
+      <input type="submit" value="Check Out" />
+    </form>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const checkInForm = document.getElementById("checkin");
+        const checkOutForm = document.getElementById("checkout");
+
+        const checkInButton = document.getElementById("checkinButton");
+        const checkOutButton = document.getElementById("checkoutButton");
+
+        checkInButton.addEventListener("click", () => {
+          const checkInShowning = checkInForm.getAttribute("shown");
+          if (checkInShowning) checkInForm.style.display = "block";
+          else checkInForm.style.display = "none";
+        });
+        checkOutButton.addEventListener("click", () => {
+          const checkOutShowing = checkOutForm.getAttribute("shown");
+          if (checkOutShowing) checkOutForm.style.display = "block";
+          else checkOutForm.style.display = "none";
+        });
+
+        checkInForm.addEventListener("submit", async (ev) => {
+          ev.preventDefault();
+
+          const roomType = document.getElementById("roomtype").value;
+
+          await fetch("/check-in", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              roomType: roomType,
+            }),
+          })
+            .then((resp) => {
+              if (resp.ok) window.open(window.location.href, "_self");
+            })
+            .catch((err) => {
+              throw new Error(`Error while doing fetch: ${err}`);
+            });
+        });
+        checkOutForm.addEventListener("submit", async (ev) => {
+          ev.preventDefault();
+        });
+      });
+    </script>
+  </body>
+</html>
