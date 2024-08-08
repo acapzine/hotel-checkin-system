@@ -80,6 +80,7 @@
             },
             body: JSON.stringify({
               roomType: roomType,
+              name: document.getElementById("person-name-checkin").value,
             }),
           })
             .then((resp) => {
@@ -91,6 +92,18 @@
         });
         checkOutForm.addEventListener("submit", async (ev) => {
           ev.preventDefault();
+
+          const roomNumber = document.getElementById("roomnumber").value;
+
+          await fetch("/check-out", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              roomNumber: roomNumber,
+            }),
+          })
         });
       });
     </script>
