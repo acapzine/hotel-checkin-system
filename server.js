@@ -30,7 +30,7 @@ app.post("/check-out", async (req, res) => {
 
   const data = await intake();
 
-  const modifiedData = changeRoomStatus(data, roomNumber, true);
+  const modifiedData = changeRoomStatus(data, roomNumber, false);
 
   await writeData(modifiedData);
 
