@@ -1,0 +1,73 @@
+{
+  "Standard": [
+    {
+      "number": "A100",
+      "taken": false,
+      "occupant": ""
+    },
+    {
+      "number": "A101",
+      "taken": false,
+      "occupant": ""
+    },
+    {
+      "number": "A102",
+      "taken": false,
+      "occupant": ""
+    },
+    {
+      "number": "A103",
+      "taken": false,
+      "occupant": ""
+    },
+    {
+      "number": "A104",
+      "taken": false,
+      "occupant": ""
+    },
+    {
+      "number": "A105",
+      "taken": false,
+      "occupant": ""
+    }
+  ],
+  "Suite": [
+    {
+      "number": "B100",
+      "taken": false,
+      "occupant": ""
+    },
+    {
+      "number": "B101",
+      "taken": false,
+      "occupant": ""
+    },
+    {
+      "number": "B102",
+      "taken": false,
+      "occupant": ""
+    },
+    {
+      "number": "B103",
+      "taken": false,
+      "occupant": ""
+    },
+    {
+      "number": "B104",
+      "taken": false,
+      "occupant": ""
+    },
+    {
+      "number": "B105",
+      "taken": false,
+      "occupant": ""
+    }
+  ],
+  "Penthouse": [
+    {
+      "number": "Penthouse Suite",
+      "taken": false,
+      "occupant": ""
+    }
+  ]
+}
